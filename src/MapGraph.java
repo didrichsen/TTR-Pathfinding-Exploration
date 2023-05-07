@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Graph{
+public class MapGraph {
 
     private class Node{
         private City city;
@@ -114,6 +114,8 @@ public class Graph{
 
     }
 
+//Dijkstra's algorithm
+
     public Path getShortestPath(String from, String to){
 
         Node fromCity = cities.get(from);
@@ -146,7 +148,6 @@ public class Graph{
                     queue.add(new NodeEntry(edge.to,newDistance));
                 }
             }
-
         }
 
 

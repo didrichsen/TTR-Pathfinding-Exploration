@@ -176,7 +176,7 @@ public class GameRepository {
 
 
 
-        Graph cityGraph = new Graph();
+        MapGraph cityGraph = new MapGraph();
 
         for (City city : cities) {
             cityGraph.addNode(city);
