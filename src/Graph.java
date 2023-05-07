@@ -25,6 +25,16 @@ public class Graph{
         }
     }
 
+    private class NodeEntry{
+        private Node node;
+        private int priority;
+
+        public NodeEntry(Node node, int priority) {
+            this.node = node;
+            this.priority = priority;
+        }
+    }
+
     private class Edge{
         private Node from;
         private Node to;
@@ -43,18 +53,12 @@ public class Graph{
     }
 
     private Map<String,Node> cities = new HashMap<>();
-    /*
-    private Map<Node, List<Node>> adjacencyList = new HashMap<>();
-
-    private Map<Node,List<Edge>> adjacencyListEdge = new HashMap<>();
-
- */
-
+    private Map<Node,List<Node>> adjacencyList = new HashMap<>();
 
     public void addNode(City city){
         cities.putIfAbsent(city.getCityName(), new Node(city));
     }
-/*
+
     public void traverseBreadthFirst(String cityName){
         Node city = cities.get(cityName);
         if(city == null) return;
@@ -84,33 +88,14 @@ public class Graph{
                     queue.add(newNode);
                 }
             }
-
-
-
-        }
-
-
-
-    }
-
- */
-/*
-    public void addEdge(City fromCityName, List<City> toCityName){
-        Node fromCity = cities.get(fromCityName.getCityName());
-        Node toCity;
-        for(City city : toCityName){
-            toCity = cities.get(city.getCityName());
-            if(toCity != null){
-                adjacencyList.get(fromCity).add(toCity);
-            }
         }
     }
 
- */
 
 
 
-    public void addEdgeWithWeight(City fromCityName, City toCityName, int weight){
+
+    public void addEdge(City fromCityName, City toCityName, int weight){
         Node fromCity = cities.get(fromCityName.getCityName());
         Node toCity = cities.get(toCityName.getCityName());
         fromCity.addEdge(toCity,weight);
@@ -127,23 +112,6 @@ public class Graph{
             }
         }
 
-    }
-/*
-    public int getShortestRoute(String fromCity, String toCity){
-        Map<Node, Integer> distances = new HashMap<>();
-        for(Node node : )
-    }
-
- */
-
-    private class NodeEntry{
-        private Node node;
-        private int priority;
-
-        public NodeEntry(Node node, int priority) {
-            this.node = node;
-            this.priority = priority;
-        }
     }
 
     public Path getShortestPath(String from, String to){
