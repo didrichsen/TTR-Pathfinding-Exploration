@@ -1,15 +1,16 @@
-import java.util.Arrays;
+package POJOs;
+
 import java.util.List;
 
 public class City {
 
     private String cityName;
-    private List<City> neighbours;
+    private List<Route> routes;
 
 
-    public City(String cityName, List<City> neighbour) {
+    public City(String cityName, List<Route> routes) {
         this.cityName = cityName;
-        this.neighbours = neighbour;
+        this.routes = routes;
     }
 
     public City(String cityName) {
@@ -24,12 +25,12 @@ public class City {
         this.cityName = cityName;
     }
 
-    public List<City> getNeighbours() {
-        return neighbours;
+    public List<Route> getNeighbours() {
+        return routes;
     }
 
-    public void setNeighbours(List<City> neighbours) {
-        this.neighbours = neighbours;
+    public void setNeighbours(List<Route> routes) {
+        this.routes = routes;
     }
 
     @Override

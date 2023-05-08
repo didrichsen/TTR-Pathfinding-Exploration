@@ -1,3 +1,6 @@
+import TTRDao.GameRepository;
+import TTRServices.ShortestPath;
+
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -60,8 +63,8 @@ public class Program {
     }
 
     private void findShortestRouteMenu(Scanner sc,String name) {
-        GameRepository gameRepository = new GameRepository();
-        gameRepository.loadRepository(sc,name);
+        ShortestPath shortestPath = new ShortestPath();
+        shortestPath.loadRepository(sc,name);
     }
 
     private void printErrorMessage(){

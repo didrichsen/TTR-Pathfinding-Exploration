@@ -1,3 +1,7 @@
+package TTRModel;
+
+import POJOs.City;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,3 +1,8 @@
+package TTRModel;
+
+import POJOs.City;
+import POJOs.Route;
+
 import java.util.*;
 
 public class MapGraph {
@@ -80,8 +85,8 @@ public class MapGraph {
             visited.add(current);
 
             for(Node node : adjacencyList.get(current)){
-                for(City neighbour : node.city.getNeighbours()){
-                    Node newNode = cities.get(neighbour.getCityName());
+                for(Route route : node.city.getNeighbours()){
+                    Node newNode = cities.get(route.getFromCity().getCityName());
                     if(newNode == null){
                         continue;
                     }
