@@ -20,7 +20,7 @@ public class JDBCops {
                 Connection con = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/ttr?useSSL=false",
                         "root",
-                        "admin"
+                        ""
                 );
                 return con;
             } catch (SQLException sqlException){
