@@ -1,7 +1,7 @@
-package TTRModel;
+package main.java.org.ttr.TTRModel;
 
-import POJOs.City;
-import POJOs.Route;
+import main.java.org.ttr.POJOs.City;
+import main.java.org.ttr.POJOs.Route;
 
 import java.util.*;
 
@@ -155,8 +155,6 @@ public class MapGraph {
             }
         }
 
-
-
         return buildPath(previousCity,toCity);
 
     }
@@ -176,6 +174,16 @@ public class MapGraph {
             path.add(stack.pop().city);
         }
         return path;
+    }
+
+    public void populateGraph(MapGraph mapGraph,List<City> cities, List<Route> routes) {
+        for (City city : cities) {
+            mapGraph.addNode(city);
+        }
+
+        for(Route route : routes){
+            mapGraph.addEdge(route.getFromCity(),route.getToCity(),route.getTicketPriceInCards());
+        }
     }
 
 }

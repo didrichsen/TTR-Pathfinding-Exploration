@@ -1,4 +1,4 @@
-package TTRDao;
+package main.java.org.ttr.TTRRepository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,7 +20,7 @@ public class JDBCops {
                 Connection con = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/ttr?useSSL=false",
                         "root",
-                        ""
+                        "admin"
                 );
                 return con;
             } catch (SQLException sqlException){

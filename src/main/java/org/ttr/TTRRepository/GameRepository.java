@@ -1,7 +1,7 @@
-package TTRDao;
+package main.java.org.ttr.TTRRepository;
 
-import POJOs.City;
-import POJOs.Route;
+import main.java.org.ttr.POJOs.City;
+import main.java.org.ttr.POJOs.Route;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

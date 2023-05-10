@@ -1,6 +1,6 @@
-package TTRModel;
+package main.java.org.ttr.TTRModel;
 
-import POJOs.City;
+import main.java.org.ttr.POJOs.City;
 
 import java.util.ArrayList;
 import java.util.List;

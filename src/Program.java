@@ -1,5 +1,4 @@
-import TTRDao.GameRepository;
-import TTRServices.ShortestPath;
+import main.java.org.ttr.TTRServices.ShortestPath;
 
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +18,7 @@ public class Program {
 
             switch (choice){
                 case 1 :
-                    findShortestRouteMenu(sc,name);
+                    findShortestRouteMenu(sc);
                     menuOptions(name,true);
                     choice = userinput(sc);
                     break;
@@ -62,9 +61,9 @@ public class Program {
 
     }
 
-    private void findShortestRouteMenu(Scanner sc,String name) {
+    private void findShortestRouteMenu(Scanner sc) {
         ShortestPath shortestPath = new ShortestPath();
-        shortestPath.loadRepository(sc,name);
+        shortestPath.outputPathInformation(sc);
     }
 
     private void printErrorMessage(){

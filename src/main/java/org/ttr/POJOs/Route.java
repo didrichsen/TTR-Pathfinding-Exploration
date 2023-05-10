@@ -1,4 +1,4 @@
-package POJOs;
+package main.java.org.ttr.POJOs;
 
 public class Route {
 
@@ -38,10 +38,6 @@ public class Route {
 
     @Override
     public String toString() {
-        return "POJOs.Route{" +
-                "fromCity=" + fromCity +
-                ", toCity=" + toCity +
-                ", ticketPriceInCards=" + ticketPriceInCards +
-                '}';
+        return fromCity + "->" + toCity + " :" + ticketPriceInCards;
     }
 }

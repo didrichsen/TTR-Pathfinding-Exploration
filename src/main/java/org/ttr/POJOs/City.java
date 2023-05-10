@@ -1,4 +1,4 @@
-package POJOs;
+package main.java.org.ttr.POJOs;
 
 import java.util.List;
 
