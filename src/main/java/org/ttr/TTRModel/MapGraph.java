@@ -2,17 +2,33 @@ package main.java.org.ttr.TTRModel;
 
 import main.java.org.ttr.POJOs.City;
 import main.java.org.ttr.POJOs.Route;
+import main.java.org.ttr.TTRRepository.GameRepository;
 
 import java.util.*;
 
 public class MapGraph {
 
-    private class Node{
+    public MapGraph() {
+        GameRepository gameRepository = new GameRepository();
+        List<City>cities = gameRepository.getCities();
+        List<Route> routes = gameRepository.getRoutes();
+        populateGraph(cities,routes);
+    }
+
+    public class Node{
         private City city;
 
         private List<Edge> edges = new ArrayList<>();
 
         public Node(City city) {
+            this.city = city;
+        }
+
+        public City getCity() {
+            return city;
+        }
+
+        public void setCity(City city) {
             this.city = city;
         }
 
@@ -30,7 +46,7 @@ public class MapGraph {
         }
     }
 
-    private class NodeEntry{
+        static class NodeEntry{
         private Node node;
         private int priority;
 
@@ -38,9 +54,25 @@ public class MapGraph {
             this.node = node;
             this.priority = priority;
         }
-    }
 
-    private class Edge{
+        public int getPriority() {
+            return priority;
+        }
+
+        public void setPriority(int priority) {
+            this.priority = priority;
+        }
+
+            public Node getNode() {
+                return node;
+            }
+
+            public void setNode(Node node) {
+                this.node = node;
+            }
+        }
+
+    public class Edge{
         private Node from;
         private Node to;
         private int weight;
@@ -51,58 +83,54 @@ public class MapGraph {
             this.weight = weight;
         }
 
+        public Node getFrom() {
+            return from;
+        }
+
+        public void setFrom(Node from) {
+            this.from = from;
+        }
+
+        public Node getTo() {
+            return to;
+        }
+
+        public void setTo(Node to) {
+            this.to = to;
+        }
+
+        public int getWeight() {
+            return weight;
+        }
+
+        public void setWeight(int weight) {
+            this.weight = weight;
+        }
+
         @Override
         public String toString() {
             return from + "->" + to;
         }
     }
 
-    private Map<String,Node> cities = new HashMap<>();
-    private Map<Node,List<Node>> adjacencyList = new HashMap<>();
+    private Map<String,Node> nodes = new HashMap<>();
+
+    public Map<String, Node> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(Map<String, Node> nodes) {
+        this.nodes = nodes;
+    }
 
     public void addNode(City city){
-        cities.putIfAbsent(city.getCityName(), new Node(city));
+        nodes.putIfAbsent(city.getCityName(), new Node(city));
     }
-
-    public void traverseBreadthFirst(String cityName){
-        Node city = cities.get(cityName);
-        if(city == null) return;
-
-        Queue<Node> queue = new ArrayDeque<>();
-        queue.add(city);
-
-        Set<Node> visited = new HashSet<>();
-
-
-        while (!queue.isEmpty()){
-
-            Node current = queue.remove();
-
-            if(visited.contains(current)){
-                continue;
-            }
-            System.out.println(current.city.getCityName());
-            visited.add(current);
-
-            for(Node node : adjacencyList.get(current)){
-                for(Route route : node.city.getNeighbours()){
-                    Node newNode = cities.get(route.getFromCity().getCityName());
-                    if(newNode == null){
-                        continue;
-                    }
-                    queue.add(newNode);
-                }
-            }
-        }
-    }
-
-
-
 
 
     public void addEdge(City fromCityName, City toCityName, int weight){
-        Node fromCity = cities.get(fromCityName.getCityName());
-        Node toCity = cities.get(toCityName.getCityName());
+        Node fromCity = nodes.get(fromCityName.getCityName());
+        Node toCity = nodes.get(toCityName.getCityName());
         fromCity.addEdge(toCity,weight);
         toCity.addEdge(fromCity,weight);
     }
@@ -110,7 +138,7 @@ public class MapGraph {
 
 
     public void print(){
-        for(Node city : cities.values()){
+        for(Node city : nodes.values()){
             List<Edge> edges = city.getEdges();
             if(!edges.isEmpty()){
                 System.out.println(city + " is connected to: " + edges);
@@ -119,70 +147,18 @@ public class MapGraph {
 
     }
 
-//Dijkstra's algorithm
-
-    public Path getShortestPath(String from, String to){
-
-        Node fromCity = cities.get(from);
-        Node toCity = cities.get(to);
-
-        Map<Node,Integer> distances = new HashMap<>();
-        for(Node node : cities.values()){
-            distances.put(node,Integer.MAX_VALUE);
-            distances.replace(fromCity,0);
-        }
-
-        Map<Node,Node> previousCity = new HashMap<>();
-
-        Set<Node> visited = new HashSet<>();
-
-        PriorityQueue<NodeEntry> queue = new PriorityQueue<>(Comparator.comparingInt(ne -> ne.priority));
-
-        queue.add(new NodeEntry(fromCity,0));
-
-        while(!queue.isEmpty()){
-            Node current = queue.remove().node;
-            visited.add(current);
-            for(Edge edge : current.getEdges()){
-                if(visited.contains(edge.to))
-                    continue;
-                int newDistance = distances.get(current) + edge.weight;
-                if(newDistance < distances.get(edge.to)){
-                    distances.replace(edge.to, newDistance);
-                    previousCity.put(edge.to,current);
-                    queue.add(new NodeEntry(edge.to,newDistance));
-                }
-            }
-        }
-
-        return buildPath(previousCity,toCity);
-
+    public Node getNode(String cityName){
+        Node city = nodes.get(cityName);
+        return city;
     }
 
-    private Path buildPath(Map<Node,Node> previousCity,Node toCity){
-        Stack<Node> stack = new Stack<>();
-        stack.push(toCity);
-        Node previous = previousCity.get(toCity);
-        while(previous != null){
-            stack.push(previous);
-            previous = previousCity.get(previous);
-        }
-
-        Path path = new Path();
-
-        while (!stack.isEmpty()){
-            path.add(stack.pop().city);
-        }
-        return path;
-    }
-
-    public void populateGraph(MapGraph mapGraph,List<City> cities, List<Route> routes) {
+    public void populateGraph(List<City> cities, List<Route> routes) {
         for (City city : cities) {
-            mapGraph.addNode(city);
+            addNode(city);
         }
 
         for(Route route : routes){
-            mapGraph.addEdge(route.getFromCity(),route.getToCity(),route.getTicketPriceInCards());
+            addEdge(route.getFromCity(),route.getToCity(),route.getTicketPriceInCards());
         }
     }
 

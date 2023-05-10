@@ -1,11 +1,11 @@
-import main.java.org.ttr.TTRServices.ShortestPath;
+import main.java.org.ttr.TTRServices.PathExploration;
 
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 
 public class Program {
-
+/*
     public void startApplication() {
         Scanner sc = new Scanner(System.in);
         String name = getName(sc);
@@ -62,7 +62,7 @@ public class Program {
     }
 
     private void findShortestRouteMenu(Scanner sc) {
-        ShortestPath shortestPath = new ShortestPath();
+        PathExploration shortestPath = new PathExploration();
         shortestPath.outputPathInformation(sc);
     }
 
@@ -137,5 +137,7 @@ public class Program {
         System.out.println("|___________________________|\n");
 
     }
+
+ */
 
 }
