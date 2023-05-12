@@ -38,6 +38,6 @@ public class Route {
 
     @Override
     public String toString() {
-        return fromCity + "->" + toCity + " :" + ticketPriceInCards;
+        return fromCity + "->" + toCity + " costs, " + ticketPriceInCards + " cards.\n";
     }
 }

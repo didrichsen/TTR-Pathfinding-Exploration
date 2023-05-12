@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class GameRepository extends JDBCops {
-
+/*
     public List<City> getCities(){
 
         List<City> result = new ArrayList<>();
@@ -42,6 +42,44 @@ public class GameRepository extends JDBCops {
 
         return result;
     }
+
+ */
+
+    public List<City> getCities() {
+        List<City> result = new ArrayList<>();
+        String preparedSelect = "SELECT * FROM city";
+
+        try (Connection con = getConnection()) {
+            con.setAutoCommit(false);
+            PreparedStatement prep = con.prepareStatement(preparedSelect);
+            ResultSet resultSet = prep.executeQuery();
+
+            while (resultSet.next()) {
+                String cityName = resultSet.getString("city_name");
+                City newCity = new City(cityName);
+                result.add(newCity);
+            }
+
+            // Retrieve the routes for each city and set them
+            List<Route> routes = getRoutes();
+            for (City city : result) {
+                List<Route> cityRoutes = new ArrayList<>();
+                for (Route route : routes) {
+                    if (route.getFromCity().getCityName().equals(city.getCityName())) {
+                        cityRoutes.add(route);
+                    }
+                }
+                city.setRoutes(cityRoutes);
+            }
+
+            con.commit();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
+        return result;
+    }
+
     public List<Route> getRoutes(){
         List<Route> result = new ArrayList<>();
 

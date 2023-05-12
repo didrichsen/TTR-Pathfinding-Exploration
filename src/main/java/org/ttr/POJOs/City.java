@@ -25,11 +25,11 @@ public class City {
         this.cityName = cityName;
     }
 
-    public List<Route> getNeighbours() {
+    public List<Route> getRoutes() {
         return routes;
     }
 
-    public void setNeighbours(List<Route> routes) {
+    public void setRoutes(List<Route> routes) {
         this.routes = routes;
     }
 
