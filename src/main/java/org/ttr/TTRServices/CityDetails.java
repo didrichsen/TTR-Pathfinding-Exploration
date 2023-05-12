@@ -11,11 +11,10 @@ public class CityDetails {
 
     GameRepository gameRepository = new GameRepository();
     BinarySearch binarySearch = new BinarySearch();
-
     List<City> cities = gameRepository.getCities();
 
 
-    public City getCity(String cityName){
+    public City getCityUsingBinarySearch(String cityName){
         cities.sort(Comparator.comparing(City::getCityName));
         int index = binarySearch.binarySearch(cities,cityName,0,cities.size()-1);
         if(index == -1){

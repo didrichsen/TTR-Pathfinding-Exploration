@@ -1,4 +1,4 @@
-package main.java.org.ttr.TTRModel;
+package main.java.org.ttr.POJOs;
 
 public enum Color {
 

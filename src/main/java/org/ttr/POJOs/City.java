@@ -1,5 +1,6 @@
 package main.java.org.ttr.POJOs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class City {
@@ -15,6 +16,7 @@ public class City {
 
     public City(String cityName) {
         this.cityName = cityName;
+        this.routes = new ArrayList<>();
     }
 
     public String getCityName() {

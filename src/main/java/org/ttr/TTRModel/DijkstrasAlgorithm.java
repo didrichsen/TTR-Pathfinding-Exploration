@@ -37,7 +37,7 @@ public class DijkstrasAlgorithm {
         while(!queue.isEmpty()){
             MapGraph.Node current = queue.remove().getNode();
             visited.add(current);
-            for(MapGraph.Edge edge : current.getEdges()){
+            for(MapGraph.Edge edge : current.getRoutes()){
                 if(visited.contains(edge.getTo()))
                     continue;
                 int newDistance = distances.get(current) + edge.getWeight();

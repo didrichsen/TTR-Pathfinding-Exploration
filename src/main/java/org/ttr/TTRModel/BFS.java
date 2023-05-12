@@ -3,51 +3,40 @@ package main.java.org.ttr.TTRModel;
 import main.java.org.ttr.POJOs.City;
 import main.java.org.ttr.POJOs.Route;
 
-import java.util.ArrayDeque;
-import java.util.HashSet;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
-public class BFS {
-/*
-    private MapGraph graph;
+public class BFS extends MapGraph {
 
-    public BFS(MapGraph graph) {
-        this.graph = graph;
-    }
+    public void traverseBreadthFirst(String cityName) {
+        Node city = getNode(cityName);
 
-    public void traverseBreadthFirst(String cityName){
-        MapGraph.Node city = cities.get(cityName);
-        if(city == null) return;
+        if (city == null)
+            return;
 
-        Queue<MapGraph.Node> queue = new ArrayDeque<>();
+        Set<Node> visited = new HashSet<>();
+
+        Queue<Node> queue = new ArrayDeque<>();
         queue.add(city);
 
-        Set<MapGraph.Node> visited = new HashSet<>();
+        while (!queue.isEmpty()) {
+            Node current = queue.remove();
 
-
-        while (!queue.isEmpty()){
-
-            MapGraph.Node current = queue.remove();
-
-            if(visited.contains(current)){
+            if(visited.contains(current))
                 continue;
-            }
-            System.out.println(current.city.getCityName());
+
+            System.out.println(current.getCity().getCityName());
+
             visited.add(current);
 
-            for(MapGraph.Node node : adjacencyList.get(current)){
-                for(Route route : node.city.getNeighbours()){
-                    MapGraph.Node newNode = cities.get(route.getFromCity().getCityName());
-                    if(newNode == null){
-                        continue;
-                    }
-                    queue.add(newNode);
+            for (Node neighbour : getAdjacencyList().get(current)) {
+                if(!visited.contains(neighbour)){
+                    queue.add(neighbour);
                 }
             }
         }
     }
 
- */
+
 
 }
+
